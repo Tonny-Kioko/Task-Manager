@@ -23,7 +23,7 @@ from requests import request
 # Create your views here.
 #Login View
 class userLoginView(LoginView):
-    template_name = 'task_app/login.html'
+    template_name = 'base/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
 
@@ -36,7 +36,7 @@ class userLoginView(LoginView):
 
 #registration View
 class userRegisterPage(FormView):
-    template_name = 'task_app/register.html'
+    template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True    
     success_url = reverse_lazy('tasks')
@@ -59,7 +59,7 @@ class userRegisterPage(FormView):
 class taskList(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
-    template_name = 'task_app/task_list.html'
+    template_name = 'base/task_list.html'
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
@@ -81,7 +81,7 @@ class taskList(LoginRequiredMixin, ListView):
 class taskDetail(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
-    template_name = 'task_app/task.html'
+    template_name = 'base/task.html'
 
 
 class taskCreate(LoginRequiredMixin, CreateView):
