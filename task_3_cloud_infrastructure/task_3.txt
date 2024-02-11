@@ -1,0 +1,59 @@
+Objective: Deploy a virtual machine instance on a cloud platform (e.g., AWS, Azure, GCP).
+
+OBJECTIVE 1: LAUNCHING AN EC2 INSTANCE
+
+1. Sign into the AWS Management Console
+2. Under the AWS Dashboard, click on EC2 to launch the service. 
+3. Configure the EC2 instance before launching it;
+    - Select a Linux-based AMI, such as Amazon Linux, Ubuntu Server, or any other Linux distribution of your choice.
+    - Under the instance type, select an option that can easily handle the scale of your project. a t2.micro instance will be sufficient. 
+    - Create a new key pair that will be used to SSH into the instance,, and ensure it is selected when creating the instance. 
+    - Under Network Configuration, select a pre-created VPC into which the launched resources will run. 
+        Here, ensure your VPC has at least two subnets, a public one for front-facing resources and a private one to host the business logic and data tier. 
+    - Create a new security group, and add rules to allow SSH traffic (port22) from your preferred IP. Also, allow HTTP traffic (port80). 
+    - For simplicity in tracking deployed resources, add a tag. Other options can be left at default in this testing phase. 
+    - Click on "Launch Instance" to deploy the configuration. 
+
+
+OBJECTIVE 2: CONNECTING TO THE INSTANCE THROUGH SSH
+
+1. After the instance has been launched, a public IP will be assigned to it. 
+2. Open your local terminal or use the SSH Client on the instance. 
+3. Navigate to the saved .pem key created when configuring the EC2 Instance. 
+    - enter 'ssh -i /path/to/your/key.pem ec2-user@<public-ip-or-dns>' replacing the various aspects of the command. 
+4. You are now connected to your EC2 Instance. 
+
+
+OBJECTIVE 3: SETTING UP THE DJANGO APP
+
+1. Installing Python and pip to set up the project by running 
+    - 'sudo yum update -y'
+    - 'sudo yum install python3 python3-pip -y'
+    - 'sudo pip3 install django'
+2. Cloning the Django App so that we can run it on the EC2 Instance by running 'git clone https://github.com/Tonny-Kioko/Task-Manager.git'
+    - Run 'sudo pip3 install -r requirements.txt '
+
+
+OBJECTIVE 4: INSTALLING AND CONFIGURING A WEB SERVER
+
+1. update the package index using 'sudo yum update -y'
+2. Installing Nginx using 'sudo yum install nginx -y'
+3. Starting the Nginx service using 'sudo systemctl start nginx'
+4. To enable Nginx to start when the instance is started, enter 'sudo systemctl enable nginx'
+5. Create a new Nginx server block for the the Task Manager App by running 'sudo nano /etc/nginx/sites-available/task_manager'
+6. Enable the created server block by running 'sudo ln -s /etc/nginx/sites-available/task_manager /etc/nginx/sites-enabled/'
+7. Reload the Nginx server to save the changes by running 'sudo systemctl reload nginx'
+
+OBJECTIVE 5: EDITING FIREWALL RULES
+
+1. Select the launched instance and under the security group, select the 'Edit Inbound Rules' option. 
+2. Add an inbound rule to allow HTTP traffic from anywhere(0.0.0.0/0)
+
+OBJECTIVE 6: ACCESSING THE WEB SERVER
+
+1. Open a web browser and navigate to your EC2 instance's public IP address or DNS name.
+2. The Task Manager App should be running, served by Nginx
+
+
+CHALLENGES ENCOUNTERED
+- Running Instances can be costly, and thus I had to leave the launched resources under the 'Stopped' state. 
