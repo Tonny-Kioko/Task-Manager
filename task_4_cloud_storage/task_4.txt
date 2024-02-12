@@ -1,0 +1,25 @@
+Create and configure cloud storage (e.g., S3, Azure Blob Storage). Perform the following:
+○ Upload a file to the storage
+○ Set appropriate access permissions
+○ Retrieve the file using command-line tools
+
+OBJECTIVE 1: UPDATING TASK CREATION FORM
+
+1. Update the task model to accommodate images, and update relevant forms to include the image option. 
+2. Configure settings.py to send images uploaded to the created S3 bucket under the pre-defined folder. 
+3. Run server and upload images to ensure they are added to the bucket successfully, and here, they are. 
+
+
+OBJECTIVE 2: SETTING APPROPRIATE PERMISSIONS
+
+1. Create a policy that allows only read access to everyone except the bucket owner. This ensures no one can make changes to the bucket. Also, ensure the HetBucket permission is enabled for all Users. 
+2. Save the policy and attach it to the S3 resource. Additionally, ensure the bucket is publicly accessible to ensure easier retrieval. 
+
+
+OBJECTIVE 3: RETRIEVING S3 FILES THROUGH THE CLI
+
+1. To get the files saved on our bucket locally, first save the user credentials including the IAM user's access key and secret key. 
+2. Use the aws s3 ls to get a list of all the available buckets. 
+3. Once the buckets are listed, enter aws s3 cp s3://bucket-name/path/to/file /local/path
+    - this will retrieve the saved files from the bucket to your local directory. 
+

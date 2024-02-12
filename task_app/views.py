@@ -11,11 +11,12 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from task_app.forms import PositionForm
+
 from django.db import transaction
 from django.views import View
 from django.contrib import messages
 from requests import request
+from .forms import TaskForm
 
 
 
@@ -84,31 +85,45 @@ class taskDetail(LoginRequiredMixin, DetailView):
     template_name = 'base/task.html'
 
 
-class taskCreate(LoginRequiredMixin, CreateView):
-    model = Task
-    fields = ['title', 'description', 'complete']
-    success_url = reverse_lazy('tasks')
-    template_name = 'base/task_form.html'
+# class taskCreate(LoginRequiredMixin, CreateView):
+#     model = Task
+#     fields = ['title', 'description', 'complete']
+#     success_url = reverse_lazy('tasks')
+#     template_name = 'base/task_form.html'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(taskCreate, self).form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super(taskCreate, self).form_valid(form)
+
+def taskCreate(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.image = form.cleaned_data['image']
+            task.save()
+            return redirect('tasks-list')
+    else:
+        form = TaskForm()
+    return render(request, 'base/task_form.html', {'form': form})
 
 
 class taskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
+    template_name = 'base/task_form.html'
     fields = ['title', 'description', 'complete']
     success_url = reverse_lazy('tasks')
 
 class taskDelete(LoginRequiredMixin, DeleteView):
-    model = Task
+    model = Task    
+    template_name = 'base/task_confirm_delete.html'
     context_object_name = 'task' 
     success_url = reverse_lazy('tasks')  
 
 
 class TaskReorder(View):
     def post(self, request):
-        form = PositionForm(request.POST)
+        form = TaskForm(request.POST)
 
         if form.is_valid():
             positionList = form.cleaned_data["position"].split(',')
