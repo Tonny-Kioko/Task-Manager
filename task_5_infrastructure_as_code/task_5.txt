@@ -1,0 +1,12 @@
+Infrastructure as code allows for an automated deployment of resources. It is also easier to manage any created resources thus giving you more control. 
+In this task, we aim to create various resources that will help run our Task Manager App. These include;
+    - A Virtual Machine Instance
+    - A VPC within which our resources will run. 
+    - Security configuration to ensure the setup is secure. 
+
+OBJECTIVE 1: CREATING A VIRTUAL PRIVATE CLOUD(VPC) AND SUBNETS
+1. Setting up the Networking components the first step since all the deployed resources will be running within them. 3
+2. For the subnets, it is ideal to go with a smaller CIDR block to ensure as few IPs are available. This is especially since we will need a private subnet for the database. 
+3. Make necessary security configuration
+4. Include an Auto Scaling Group for the deployed resources
+5. An S3 bucket with a life policy for the task images uploaded by the users

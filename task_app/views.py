@@ -85,16 +85,6 @@ class taskDetail(LoginRequiredMixin, DetailView):
     template_name = 'base/task.html'
 
 
-# class taskCreate(LoginRequiredMixin, CreateView):
-#     model = Task
-#     fields = ['title', 'description', 'complete']
-#     success_url = reverse_lazy('tasks')
-#     template_name = 'base/task_form.html'
-
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         return super(taskCreate, self).form_valid(form)
-
 def taskCreate(request):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
