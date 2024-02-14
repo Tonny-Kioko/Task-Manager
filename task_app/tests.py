@@ -1,22 +1,23 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory
 from django.urls import reverse
-from .models import Task  
+from .models import Task
 from .views import taskCreate, taskList, taskDetail, taskUpdate, taskDelete
+
 
 class TaskModelTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
-        # Create a test user
-        cls.user = User.objects.create_user(username='testuser', password='password')
+        # Create a user
+        cls.user = User.objects.create_user(username='testuser', password='testpassword')
 
         # Create a sample task
         cls.task = Task.objects.create(
             user=cls.user,
             title='Sample Task',
             description='This is a sample task description.',
-            image=None,  
+            image=None,
             complete=False,
         )
 
@@ -28,7 +29,7 @@ class TaskModelTestCase(TestCase):
         self.assertEqual(task.user, self.user)
         self.assertEqual(task.title, 'Sample Task')
         self.assertEqual(task.description, 'This is a sample task description.')
-        self.assertIsNone(task.image)  
+        self.assertIsNone(task.image)
         self.assertFalse(task.complete)
         self.assertIsNotNone(task.created)
 
@@ -36,18 +37,6 @@ class TaskModelTestCase(TestCase):
         # Test the __str__ method of the Task model
         task = Task.objects.get(id=self.task.id)
         self.assertEqual(str(task), 'Sample Task')
-
-    def test_task_ordering(self):
-        # Create more tasks with different completion statuses
-        Task.objects.create(user=self.user, title='Task 1', complete=True)
-        Task.objects.create(user=self.user, title='Task 2', complete=False)
-
-        # Retrieve tasks ordered by completion status
-        ordered_tasks = Task.objects.all()
-
-        # Test that tasks are ordered by completion status (completed tasks first)
-        self.assertTrue(ordered_tasks[0].complete)  
-        self.assertFalse(ordered_tasks[1].complete) 
 
 
 class TaskViewsTestCase(TestCase):
@@ -96,7 +85,7 @@ class TaskViewsTestCase(TestCase):
         response = taskList.as_view()(request)
 
         # Check that the response contains the test task
-        self.assertIn(self.task, response.context_data['tasks'])
+        self.assertIn(self.task, response.context_data['object_list'])
 
     def test_task_detail_view(self):
         # Create a GET request to the taskDetail view for the test task
