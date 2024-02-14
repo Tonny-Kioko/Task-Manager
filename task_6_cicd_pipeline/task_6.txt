@@ -1,0 +1,22 @@
+CI/CD Pipeline with Cloud Integration (DevOps and Cloud Engineering)
+- I will create a CI/CD pipeline using AWS Code Pipeline with the codebase imported from AWS Code Commit. 
+    Code Build and Code Deploy will also be used at various steps in the process. 
+
+OBJECTIVE 1: CREATING A CODECOMMIT REPOSITORY
+
+1. Click on Code Commit and select the 'Create Repository' option. Once created, clone the repository locally. 
+2. Create a Code Commit Username and Password on the IAM console. This ensures you can connect to the repository and push your changes through the HTTPS Git Credentials created. 
+    - Save these as they cannot be accessed later on.
+    * Alternatively, we can use GitHub as the code source since most of our pushes will go there. This is the approach I will be using for the project. 
+
+
+OBJECTIVE 2: CREATING A BUILD PROJECT ON CODEBUILD
+1. Enter a project name and a brief description
+2. Select a primary source, in this case I will be using GitHub, select the Task-Manager repository and the main branch. 
+3. Under the environment, select a Managed Image with the Ubuntu OS. Leave other options as default for simplicity.  
+4. Create a new service role, this will be performed by AWS once this option is selected. 
+5. Under the build specifications, select the buildspec.yml file option.
+6. Made other configurations to make the pipeline run successfully. 
+
+OBJECTIVE 3: S3 FOR ARTIFACT STORAGE
+On successful builds, artifact files will be stored in an S3 bucket. 
