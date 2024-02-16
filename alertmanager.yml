@@ -1,0 +1,14 @@
+route:
+  group_by: ['taskmanagerstatus']
+  receiver: 'email-notifications'
+
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+      - to: 'cfakiokoanthony@gmail.com'
+        from: ''
+        smarthost: ''
+        auth_username: ''
+        auth_password: ''
+        auth_identity: ''
+        send_resolved: true
