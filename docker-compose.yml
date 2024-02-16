@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  
+  web:
+    build: .
+    container_name: djangotaskmanager
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/taskmanager
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgdb
+    environment:
+      - DATABASE_URL=postgres://postgres:c3po@db:5432/task_manager
+  
+  
+  pgdb:
+    image: postgres
+    container_name: pgdbtaskmanager
+    environment:
+      - POSTGRES_DB=task_manager
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=c3po
+
+
+        
+
+
+# docker exec -it postgres psql -U postgres
+# CREATE DATABASE task_manager;
+# CREATE USER postgres WITH PASSWORD 'c3po';
+# GRANT ALL PRIVILEGES ON DATABASE task_manager TO postgres;
+# \q
+
+# docker-compose up --build
+
+
+  
+      
+      

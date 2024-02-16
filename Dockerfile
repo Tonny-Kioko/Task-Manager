@@ -35,7 +35,7 @@ CMD ["bash", "-c", "python manage.py makemigrations && python manage.py migrate 
 
 
 # To build the image from these settings
-# docker build --no-cache -t taskmanager:1.0.0 .
+#
 
 # docker build --no-cache -t taskmanager:1.0 -f Dockerfile .
 
@@ -43,7 +43,7 @@ CMD ["bash", "-c", "python manage.py makemigrations && python manage.py migrate 
 # docker images
 
 # For port forwarding to make the app accessible publicly
-# docker run -p 8000:[containerport] --name [new-name] [containerid/containername]
+# docker run -p 8000:[containerport] --name [new-name] [imageid/imagername]
 
 
 #DEBUGGING
