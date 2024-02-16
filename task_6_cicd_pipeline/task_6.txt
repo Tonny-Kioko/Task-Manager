@@ -20,3 +20,15 @@ OBJECTIVE 2: CREATING A BUILD PROJECT ON CODEBUILD
 
 OBJECTIVE 3: S3 FOR ARTIFACT STORAGE
 On successful builds, artifact files will be stored in an S3 bucket. 
+
+
+Ultimately, the steps taken in the project are;
+1. Creating a docker image and testing out a container (sudo systemctl status docker.service)
+2. Creating an AWS Elastic Container Registry repository
+3. Creating an Application Load Balancer
+4. Creating an Amazon Elastic Container Service Cluster
+5. Creating an AWS CodeCommit repository for the codebase
+6. Configuring AWS codeBuild for the project and its dependencies. 
+7. Bringing the AWS CodePipeline together to include all the above steps
+8. Configuring Artifact storage in S3
+9. Deployment, testing and error handling. 

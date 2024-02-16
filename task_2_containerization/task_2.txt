@@ -1,0 +1,11 @@
+1. Objective: Containerize the web application from Task 1. The Docker container should:
+○ Expose the necessary ports
+○ Include all dependencies
+○ Be able to run the web application
+
+OBJECTIVE 1: CREATING A DOCKER COMPOSE FILE
+1. Since I will need multiple containers (database and logic), I created a docker-compose.yml file to execute these commands. 
+2. All dependencies have been included in the files. 
+3. I have tested the containers, and all the necessary ports are available and the application run successfully. 
+
+NB: The files uploaded for the tasks are being uploaded to S3 as intended successfully

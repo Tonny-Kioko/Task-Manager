@@ -32,6 +32,7 @@ OBJECTIVE 3: SETTING UP THE DJANGO APP
     - 'sudo pip3 install django'
 2. Cloning the Django App so that we can run it on the EC2 Instance by running 'git clone https://github.com/Tonny-Kioko/Task-Manager.git'
     - Run 'sudo pip3 install -r requirements.txt '
+    - 
 
 
 OBJECTIVE 4: INSTALLING AND CONFIGURING A WEB SERVER
