@@ -26,7 +26,9 @@ djangorestframework-filters==0.11.1
 django-storages==1.14.2
 gunicorn==20.1.0
 
-
+postgres==4.0
+psycopg2==2.9.9
+psycopg2-binary==2.9.9
 
 pytest==7.2.2
 pytest-django==4.5.2
