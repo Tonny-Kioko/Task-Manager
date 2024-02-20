@@ -3,7 +3,7 @@ services:
   
   web:
     build: .
-    container_name: djangotaskmanager
+    container_name: djangotaskmanagermonitored
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/taskmanager
@@ -17,7 +17,7 @@ services:
   
   pgdb:
     image: postgres
-    container_name: pgdbtaskmanager
+    container_name: pgdbtaskmanagermonitored
     environment:
       - POSTGRES_DB=task_manager
       - POSTGRES_USER=postgres
@@ -26,21 +26,29 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus
+    container_name: prometheustaskmanagermonitored
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     restart: always
 
+
   alertmanager:
     image: prom/alertmanager
-    container_name: alertmanager
+    container_name: alertmanagermonitored
     volumes:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     ports:
       - "9093:9093"
     restart: always
+
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafanataskmanagermonitored
+    ports:
+      - "3000:3000"
         
 
 
@@ -51,8 +59,16 @@ services:
 # \q
 
 # docker-compose up --build
+# docker-compose up --force-recreate
+# docker-compose build --no-cache
+
+#DEBUGGING
+
+#For checking logs and debugging
+# docker logs [containername]
 
 
+# Grafana access - http://localhost:3000
   
       
       
