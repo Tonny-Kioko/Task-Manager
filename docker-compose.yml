@@ -67,7 +67,6 @@ services:
 #For checking logs and debugging
 # docker logs [containername]
 
-
 # Grafana access - http://localhost:3000
   
       

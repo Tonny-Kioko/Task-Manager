@@ -13,6 +13,7 @@ web application. Include:
     4. Network Outages that prevent service communication
     5. A low memory utilization that results in resource wastage and over payments.
 
+ - I decided to attempt to containerize all the aspects of the application. ie Prometheus and 
 
 OBJECTIVE 1: SETTING UP PROMETHEUS
 

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,16 +85,18 @@ WSGI_APPLICATION = 'Task_Manager.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'task_manager',
-#         'USER': 'tonny',
-#         'PASSWORD': 'c3po',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
+# 'default': {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': os.getenv('DB_NAME'),
+#     'HOST': os.getenv('DB_HOST'),
+#     'PORT': os.getenv('DB_PORT'),
+#     'USER': os.getenv('DB_USER'),
+#     'PASSWORD': os.getenv('DB_PASSWORD'),
+    
+  
+# }}
 
 DATABASES = {
     'default': {
@@ -149,9 +153,9 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-AWS_STORAGE_BUCKET_NAME = 'task-manager-savannah'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('BUCKET_NAME')
 AWS_S3_REGION_NAME = 'us-east-1'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
