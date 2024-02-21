@@ -1,38 +1,29 @@
 FROM python:3.13.0a4-slim-bullseye
 
-
 # Set environment variables (optional)
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# makes a new folder within the container
+# Create and activate the virtual environment
 WORKDIR /taskmanager
 
+RUN python -m venv venv
 
-# Outside container -> Inside container
-# contains libraries nessesary for running our app
+ENV PATH="/taskmanager/venv/bin:$PATH"
+
+# Copy requirements.txt and install dependencies
 COPY ./requirements.txt /taskmanager/
 
+RUN pip install -r requirements.txt
 
-# Inside container
-# Installs the python libraries
-RUN  pip install -r requirements.txt
-
-# Outside container -> Inside container
-# means everything in the current directory. 
-# . /AWS (Outside the container), second . /AWS (Inside the container)
+# Copy project files
 COPY . /taskmanager/
 
-# Setting environment variables They remain constant as the container is running
-
+# Setting environment variables
 EXPOSE 8000
 
-#Applying Database migrations before running servers
-## commands below
-
-# python manage.py runserver --host=127.0.0.1:8000 --port=8000
+# Apply database migrations and run the server
 CMD ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-
 
 # To build the image from these settings
 #
