@@ -1,1 +1,8 @@
+Objective: Set up a virtual machine using KVM (Kernel-based Virtual Machine) or another hypervisor of
+choice. The VM should:
+○ Run a Linux-based operating system
+○ Be accessible via SSH
+○ Have appropriate resource allocations
+
+
 I have created and run the virtual machine using the GUI. I chose this approach since it is simpler and easier to accomplish. 
