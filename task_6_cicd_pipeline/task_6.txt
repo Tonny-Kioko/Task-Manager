@@ -32,3 +32,5 @@ Ultimately, the steps taken in the project are;
 7. Bringing the AWS CodePipeline together to include all the above steps
 8. Configuring Artifact storage in S3
 9. Deployment, testing and error handling. 
+
+NB: I wrote on this topic a while ago (https://medium.com/@anthonykioko/devops-project-deploying-ec2-instances-using-jenkins-declarative-ci-cd-pipelines-d5784d137862) using Jenkins. 

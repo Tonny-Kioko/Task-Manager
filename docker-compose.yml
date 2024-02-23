@@ -31,8 +31,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    restart: always
-
+  
 
   alertmanager:
     image: prom/alertmanager
@@ -41,8 +40,7 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     ports:
       - "9093:9093"
-    restart: always
-
+    
 
   grafana:
     image: grafana/grafana

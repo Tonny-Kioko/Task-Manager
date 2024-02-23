@@ -7,10 +7,6 @@ ENV PYTHONUNBUFFERED 1
 # Create and activate the virtual environment
 WORKDIR /taskmanager
 
-RUN python -m venv venv
-
-ENV PATH="/taskmanager/venv/bin:$PATH"
-
 # Copy requirements.txt and install dependencies
 COPY ./requirements.txt /taskmanager/
 
