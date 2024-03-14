@@ -40,7 +40,7 @@ class userRegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True    
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks-list')
 
     def form_valid(self, form):
         user = form.save()

@@ -4,6 +4,7 @@ from .views import taskDetail
 from .views import taskCreate
 from django.contrib.auth.views import LogoutView
 from . import views
+from django.conf.urls import url, include
 
 urlpatterns = [
     #Home
@@ -23,5 +24,8 @@ urlpatterns = [
     path('update-task/<int:pk>/', taskUpdate.as_view(), name='task-update'),
     path('delete-task/<int:pk>/', taskDelete.as_view(), name='task-delete'),
     path('task-reorder/', TaskReorder.as_view(), name='task-reorder'),
+    
+
+    
 
 ]

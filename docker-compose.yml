@@ -13,8 +13,9 @@ services:
       - pgdb
     environment:
       - DATABASE_URL=postgres://postgres:c3po@db:5432/task_manager
+    restart: unless-stopped
   
-  
+
   pgdb:
     image: postgres
     container_name: pgdbtaskmanagermonitored
@@ -22,31 +23,50 @@ services:
       - POSTGRES_DB=task_manager
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=c3po
+    restart: unless-stopped
 
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v2.36.2
     container_name: prometheustaskmanagermonitored
+    command: 
+      - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - C:/Users/cfaki/OneDrive/Eneokazi/Task-Manager/prometheus.yml:/etc/prometheus/prometheus.yml  #replace with the absolute path to your prometheus file.
+      
+      
+      
     ports:
       - "9090:9090"
+    restart: unless-stopped
+     
   
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafanataskmanagermonitored
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    
+    restart: unless-stopped
+
 
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanagermonitored
     volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - C:\Users\cfaki\OneDrive\Eneokazi\Task-Manager\prometheus.yml:/etc/alertmanager/alertmanager.yml  #replace with the absolute path to your alertmanager file.
     ports:
       - "9093:9093"
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+    
+    
     
 
-  grafana:
-    image: grafana/grafana
-    container_name: grafanataskmanagermonitored
-    ports:
-      - "3000:3000"
+  
         
 
 
