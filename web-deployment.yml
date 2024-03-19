@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: taskmanager:1.0
+        ports:
+        - containerPort: 8000
+        env:
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: postgres-user
+        - name: USER_PWD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: postgres-password 
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: postgres-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30000
