@@ -54,6 +54,11 @@ services:
       - "9093:9093"
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
+
+
+
+
+      
 # docker exec -it postgres psql -U postgres
 # CREATE DATABASE task_manager;
 # CREATE USER postgres WITH PASSWORD 'c3po';
