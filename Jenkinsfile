@@ -1,5 +1,13 @@
 pipeline {
+    environment {
+        dockerimagename = 'taskmanagerapp'
+        dockerimage = ''
+    }
     agent any
+
+    tools{
+        git 'Default'
+    }
 
     stages {
         stage('Code Source') {
@@ -11,8 +19,10 @@ pipeline {
 
         stage('Image Build') {
             steps {
-                // Use docker-compose to build images
-                sh 'docker-compose -f docker-compose.yml build'
+                script {
+                    // Use docker-compose to build images
+                    dockerimage = sh(script: "docker-compose -f docker-compose.yml build ${dockerimagename}", returnStdout: true).trim()
+                }
             }
         }
 
