@@ -20,9 +20,9 @@ pipeline {
         stage('Image Build') {
             steps {
                 script {
-                    sh 'apt-get update && apt-get install -y docker-compose'
+                    
                     // Use docker-compose to build images
-                    dockerimage = sh(script: "docker-compose -f docker-compose.yml build ${dockerimagename}", returnStdout: true).trim()
+                    dockerimage = sh(script: "docker-compose -f docker-compose.yml --build ${dockerimagename}", returnStdout: true).trim()
                 }
             }
         }
