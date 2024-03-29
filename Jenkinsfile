@@ -5,7 +5,7 @@ pipeline {
     }
     agent any
 
-    tools{
+    tools {
         git 'Default'
     }
 
@@ -13,7 +13,7 @@ pipeline {
         stage('Code Source') {
             steps {
                 // Pull code from the Task-Manager repository
-                git 'https://github.com/Tonny-Kioko/Task-Manager.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Tonny-Kioko/Task-Manager.git']]])
             }
         }
 
