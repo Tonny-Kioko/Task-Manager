@@ -17,12 +17,15 @@ pipeline {
             }
         }
 
+        stage('Install Python and pip3') {
+            steps {
+                sh 'apt-get update && apt-get install -y python3 python3-pip'
+            }
+        }
+
         stage('Image Build') {
             steps {
                 script {
-                    // Install docker-compose
-                    sh 'pip3 install docker-compose'
-
                     // Use docker-compose to build images
                     dockerimage = sh(script: "docker-compose -f docker-compose.yml --build ${dockerimagename}", returnStdout: true).trim()
                     sh 'docker-compose up -d'
