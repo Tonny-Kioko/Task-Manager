@@ -21,6 +21,8 @@ pipeline {
             steps {
                 script {
                     // Install docker-compose
+
+                    sh 'apt install python3-pip'
                     sh 'pip3 install docker-compose'
 
                     // Use docker-compose to build images
