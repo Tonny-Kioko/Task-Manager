@@ -20,9 +20,12 @@ pipeline {
         stage('Image Build') {
             steps {
                 script {
-                    
+                    // Install docker-compose
+                    sh 'pip3 install docker-compose'
+
                     // Use docker-compose to build images
                     dockerimage = sh(script: "docker-compose -f docker-compose.yml --build ${dockerimagename}", returnStdout: true).trim()
+                    sh 'docker-compose up -d'
                 }
             }
         }
