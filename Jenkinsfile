@@ -20,9 +20,8 @@ pipeline {
         stage('Image Build') {
             steps {
                 script {
-                    // Use docker build to build the image
-                    dockerimage = sh(script: "docker build -t ${dockerimagename} .", returnStdout: true).trim()
-                    sh 'docker run -d -p 8000:8000 ${dockerimagename}'
+
+                    dockerimage = docker.build dockerimagename
                 }
             }
         }
