@@ -20,10 +20,9 @@ pipeline {
         stage('Image Build') {
             steps {
                 script {
-                   
-                    // Use docker-compose to build images
-                    dockerimage = sh(script: "docker-compose build ${dockerimagename}", returnStdout: true).trim()
-                    sh 'docker-compose up -d'
+                    // Use docker build to build the image
+                    dockerimage = sh(script: "docker build -t ${dockerimagename} .", returnStdout: true).trim()
+                    sh 'docker run -d -p 8000:8000 ${dockerimagename}'
                 }
             }
         }
